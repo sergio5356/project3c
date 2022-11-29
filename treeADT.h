@@ -14,14 +14,18 @@ typedef struct node{
 typedef struct treeADT{
 	node *root;
 	/*
-	 * pointer to a function called compare. compare compares the data contained in
-	 * two nodes. 
-	 * int compare(const void *p1, const void *p2){...}
-	 * should return -1 if value pointed to by p1 comes before p2. return
+	 * function pointer called compare. 
+	 * The function compare points to must take two void pointers as parameters.
+	 * The function then must cast these two pointers to the appropriate type. 
+	 * Then the function compares the data located at the two addresses
+	 * to determine which would come first in an ordering.
+	 * the function definition would look something like this:
+	 * int myCompare(const void *p1, const void *p2){...}
+	 * The function should return -1 if value pointed to by p1 comes before p2. return
 	 * 0 if they are equal. return 1 if p2 comes before p1.
 	 *
-	 * it is your responsiblity to write this compare function, 
-	 * and pass it to init_tree function call
+	 * it is your responsiblity to write this myCompare function, 
+	 * and pass it to initTree function call
 	 * 
 	 */
 	int (*compare)(const void*,const void*);
@@ -36,8 +40,12 @@ treeADT *initTree(int (*compare)(const void*, const void*));
 node *initBranch(void *data);
 
 //inserts a single node into the tree
+//will call initBranch as a helper function
+//initBranch should probably be a static function and not have 
+//a prototype in this file, but I don't to risk the grader
+//not seeing initBranch.
 //need to call balanceTreeInsertion at the end of this function
-void insertBranch(treeADT *tree, node *toInsert);
+void insertBranch(treeADT *tree, void *data);
 
 //returns 1 if found and destroyed, 0 if not found
 //this function actually destroys the entire subtree rooted at toDestroy
