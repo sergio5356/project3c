@@ -14,9 +14,13 @@ treeADT *initTree(int (*compare)(const void*, const void*)){
 		exit(1);
 	}
 
+
+
 	toReturn->root = NULL;
 
 	toReturn->compare = compare;
+
+	return toReturn;
 }
 
 node *initBranch(void *data){
